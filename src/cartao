@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class cartao {
+    private List<compra> carrinho ;
+    private double limit;
+    private double saldo;
+
+    public double getLimit() {
+        return limit;
+    }
+
+    public void setLimit(double limit) {
+        this.limit = limit;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public List<compra> getCarrinho() {
+        return carrinho;
+    }
+
+    public void setCarrinho(List<compra> carrinho) {
+        this.carrinho = carrinho;
+    }
+
+    public cartao(double limit) {
+        this.carrinho = new ArrayList<>();
+        this.limit = limit;
+        this.saldo = limit;
+    }
+
+    public boolean lancaCompra(compra item){
+        if(this.saldo > item.getValor()) {
+              this.saldo -= item.getValor();
+              this.carrinho.add(item);
+              return true;
+        }
+        return false;
+    }
+}
