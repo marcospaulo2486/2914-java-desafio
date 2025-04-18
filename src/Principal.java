@@ -1,44 +1,39 @@
-import java.util.Collections;
 import java.util.Scanner;
 
-public class Principal {
+public class Main {
     public static void main(String[] args) {
-        Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite o limite do cartão: ");
-        double limite = leitura.nextDouble();
-        CartaoDeCredito cartao = new CartaoDeCredito(limite);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Informe o Limite: ");
+        int limite = scanner.nextInt();
+        cartao  roxo = new cartao(limite);
 
         int sair = 1;
-        while(sair != 0) {
-            System.out.println("Digite a descrição da compra:");
-            String descricao = leitura.next();
+        while(sair !=0){
+            System.out.println("Descricao da compra:");
+            scanner.nextLine();
+            String descricao =
+                    scanner.nextLine();
 
-            System.out.println("Digite o valor da compra:");
-            double valor = leitura.nextDouble();
+            System.out.println("Valor da compra:");
+            double valor = scanner.nextDouble();
 
-            Compra compra = new Compra(descricao, valor);
-            boolean compraRealizada = cartao.lancaCompra(compra);
-
-            if (compraRealizada) {
-                System.out.println("Compra realizada!");
-                System.out.println("Digite 0 para sair ou 1 para continuar");
-                sair = leitura.nextInt();
-            } else {
-                System.out.println("Saldo insuficiente!");
+            compra itens = new compra(descricao,valor);
+            boolean efetuado = roxo.lancaCompra(itens);
+            if(efetuado){
+                System.out.println("Compra efetuada com sucesso!");
+                System.out.println("INSIRA 1 PARA MAIS COMPRAS E 0 PARA SAIR!");
+                sair = scanner.nextInt();
+            }else{
+                System.out.println("Limite insuficiente!");
                 sair = 0;
             }
-        }
 
-        System.out.println("***********************");
-        System.out.println("COMPRAS REALIZADAS:\n");
-        Collections.sort(cartao.getCompras());
-        for (Compra c : cartao.getCompras()) {
-            System.out.println(c.getDescricao() + " - " +c.getValor());
         }
-        System.out.println("\n***********************");
-
-        System.out.println("\nSaldo do cartão: " +cartao.getSaldo());
+    for (compra x : roxo.getCarrinho()){
+        System.out.println(x.getDescricao() + " - " + x.getValor());
     }
-
-
+        System.out.println("\n********************************");
+        System.out.println("\nsaldo do cartão: " + roxo.getSaldo());
+    }
 }
